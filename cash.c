@@ -1,21 +1,22 @@
 #include <stdio.h>
+#include <math.h>
 
 float get_valid_change();
 float get_change();
 
 // Available denominations
-static int DENOMINATION_VALS[5] = {50, 25, 10, 5, 1};
+static int DENOMINATION_VALS[4] = {25, 10, 5, 1};
 
 int main()
 {
     // Get user input from stdin
     float change = get_valid_change();
     // Convert dollars to cents
-    int cents = (int)(change * 100);
-    
+    int cents = round(change * 100);
+
     // Initialize coin amount at 0
     int coin_amount = 0;
-    for (int i = 0; i < 5; i++) 
+    for (int i = 0; i < 4; i++)
     {
         // Get current denomination
         int denomination = *(DENOMINATION_VALS + i);
@@ -36,7 +37,7 @@ int main()
 float get_valid_change()
 {
     float change;
-    do 
+    do
     {
         change = get_change();
     }
@@ -52,7 +53,7 @@ float get_change()
     char input[100];
     // Get input string
     fgets(input, 100, stdin);
-    float change;
+    float change = -1;
     // Scan input string for integer
     sscanf(input, "%f", &change);
     return change;
